@@ -26,6 +26,7 @@ export const ROUTES = {
   adminCategorias: '/admin/categorias',
   adminCategoriasNova: '/admin/categorias/novo',
   adminCategoriasEditar: (id: string) => `/admin/categorias/${id}/editar`,
+  adminMarcas: '/admin/marcas',
   adminTipos: '/admin/tipos',
   adminTiposNovo: '/admin/tipos/novo',
   adminTiposEditar: (id: string) => `/admin/tipos/${id}/editar`,

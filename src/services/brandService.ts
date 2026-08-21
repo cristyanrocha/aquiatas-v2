@@ -44,6 +44,15 @@ export const brandService = {
   },
 
   async remove(id: string): Promise<void> {
+    const { count, error: countError } = await supabase
+      .from('atas')
+      .select('id', { count: 'exact', head: true })
+      .eq('brand_id', toDbId(id))
+    if (countError) throw new Error(translateSupabaseError(countError))
+    if ((count ?? 0) > 0) {
+      throw new Error('Não é possível excluir esta marca porque ela está vinculada a um ou mais Itens das Atas.')
+    }
+
     const { error } = await supabase.from('brands').delete().eq('id', toDbId(id))
     if (error) throw new Error(translateSupabaseError(error))
     void brandStore.refresh()

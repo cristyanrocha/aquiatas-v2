@@ -22,6 +22,7 @@ interface DataTableProps<T> {
   isLoading?: boolean
   emptyTitle?: string
   emptyDescription?: string
+  emptyAction?: ReactNode
   sortKey?: string
   sortDirection?: SortDirection
   onSortChange?: (key: string) => void
@@ -35,6 +36,7 @@ export function DataTable<T>({
   isLoading = false,
   emptyTitle = 'Nenhum registro encontrado',
   emptyDescription = 'Ajuste os filtros ou cadastre um novo registro.',
+  emptyAction,
   sortKey,
   sortDirection = 'asc',
   onSortChange,
@@ -100,7 +102,7 @@ export function DataTable<T>({
       )}
       {!isLoading && data.length === 0 && (
         <div className="p-6">
-          <EmptyState title={emptyTitle} description={emptyDescription} />
+          <EmptyState title={emptyTitle} description={emptyDescription} action={emptyAction} />
         </div>
       )}
     </div>

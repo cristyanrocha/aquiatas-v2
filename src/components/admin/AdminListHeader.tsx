@@ -9,7 +9,10 @@ interface AdminListHeaderProps {
   search: string
   onSearchChange: (value: string) => void
   searchPlaceholder?: string
-  newHref: string
+  /** Navigates to a dedicated "new" page. Provide this OR `onNewClick`, not both. */
+  newHref?: string
+  /** Opens a modal/drawer inline instead of navigating. Provide this OR `newHref`, not both. */
+  onNewClick?: () => void
   newLabel: string
 }
 
@@ -20,6 +23,7 @@ export function AdminListHeader({
   onSearchChange,
   searchPlaceholder = 'Buscar...',
   newHref,
+  onNewClick,
   newLabel,
 }: AdminListHeaderProps) {
   return (
@@ -29,12 +33,19 @@ export function AdminListHeader({
           <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>
           {description && <p className="text-sm text-muted-foreground">{description}</p>}
         </div>
-        <Button asChild>
-          <Link to={newHref}>
+        {onNewClick ? (
+          <Button onClick={onNewClick}>
             <Plus className="size-4" />
             {newLabel}
-          </Link>
-        </Button>
+          </Button>
+        ) : (
+          <Button asChild>
+            <Link to={newHref ?? '#'}>
+              <Plus className="size-4" />
+              {newLabel}
+            </Link>
+          </Button>
+        )}
       </div>
       <div className="relative max-w-sm">
         <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />

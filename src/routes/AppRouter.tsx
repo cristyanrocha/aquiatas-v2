@@ -38,6 +38,7 @@ const ParceirosListPage = lazy(() => import('@/pages/admin/parceiros/ParceirosLi
 const ParceiroFormPage = lazy(() => import('@/pages/admin/parceiros/ParceiroFormPage').then((m) => ({ default: m.ParceiroFormPage })))
 const CategoriasListPage = lazy(() => import('@/pages/admin/categorias/CategoriasListPage').then((m) => ({ default: m.CategoriasListPage })))
 const CategoriaFormPage = lazy(() => import('@/pages/admin/categorias/CategoriaFormPage').then((m) => ({ default: m.CategoriaFormPage })))
+const MarcasListPage = lazy(() => import('@/pages/admin/marcas/MarcasListPage').then((m) => ({ default: m.MarcasListPage })))
 const TiposListPage = lazy(() => import('@/pages/admin/tipos/TiposListPage').then((m) => ({ default: m.TiposListPage })))
 const TipoFormPage = lazy(() => import('@/pages/admin/tipos/TipoFormPage').then((m) => ({ default: m.TipoFormPage })))
 const OrgaosListPage = lazy(() => import('@/pages/admin/orgaos/OrgaosListPage').then((m) => ({ default: m.OrgaosListPage })))
@@ -96,6 +97,8 @@ export function AppRouter() {
               <Route path={ROUTES.adminCategorias} element={<CategoriasListPage />} />
               <Route path={ROUTES.adminCategoriasNova} element={<CategoriaFormPage />} />
               <Route path="/admin/categorias/:id/editar" element={<CategoriaFormPage />} />
+
+              <Route path={ROUTES.adminMarcas} element={<MarcasListPage />} />
 
               <Route path={ROUTES.adminTipos} element={<TiposListPage />} />
               <Route path={ROUTES.adminTiposNovo} element={<TipoFormPage />} />

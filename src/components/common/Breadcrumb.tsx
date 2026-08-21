@@ -32,6 +32,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   editar: 'Editar',
   usuarios: 'Usuários',
   categorias: 'Categorias',
+  marcas: 'Marcas',
   tipos: 'Tipos de Ata',
 }
 
