@@ -147,46 +147,6 @@
     --sidebar-ring: oklch(0.65 0.15 258);
 }
 
-@keyframes hero-drift-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(48px, -36px) scale(1.12); }
-}
-@keyframes hero-drift-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-40px, 32px) scale(1.08); }
-}
-@keyframes hero-drift-c {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(24px, 28px) scale(1.1); }
-}
-@keyframes hero-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-.hero-glow {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation-duration: 16s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-.hero-glow-a { animation-name: hero-drift-a; }
-.hero-glow-b { animation-name: hero-drift-b; animation-duration: 20s; }
-.hero-glow-c { animation-name: hero-drift-c; animation-duration: 14s; }
-.hero-node-pulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hero-pulse 4s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-glow,
-  .hero-node-pulse {
-    animation: none !important;
-  }
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
