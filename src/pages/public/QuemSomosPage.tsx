@@ -1,4 +1,4 @@
-import { Eye, ShieldCheck, Sparkles, Target } from 'lucide-react'
+import { Compass, Eye, ShieldCheck, Sparkles, Target } from 'lucide-react'
 import { Seo, SocialIconLink } from '@/components/common'
 import { SOCIAL_LINKS } from '@/constants/social'
 
@@ -42,7 +42,7 @@ export function QuemSomosPage() {
         </div>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-2 rounded-xl border border-border bg-card p-6 shadow-sm">
           <Target className="size-6 text-brand" aria-hidden="true" />
           <h2 className="text-lg font-semibold text-foreground">Missão</h2>
@@ -56,6 +56,15 @@ export function QuemSomosPage() {
           <h2 className="text-lg font-semibold text-foreground">Visão</h2>
           <p className="text-sm text-muted-foreground">
             Ser a principal referência digital em divulgação de Atas de Registro de Preços do Brasil.
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 rounded-xl border border-border bg-card p-6 shadow-sm">
+          <Compass className="size-6 text-brand" aria-hidden="true" />
+          <h2 className="text-lg font-semibold text-foreground">Valores</h2>
+          <p className="text-sm text-muted-foreground">
+            Atuamos com Transparência, Simplicidade e Eficiência, buscando tornar o acesso às informações sobre Atas
+            de Registro de Preços mais claro, organizado e acessível, contribuindo para conexões mais eficientes
+            entre órgãos públicos, empresas e oportunidades.
           </p>
         </div>
       </div>
