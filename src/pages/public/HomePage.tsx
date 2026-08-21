@@ -7,7 +7,6 @@ import {
   AtaCard,
   AtaDetailsModal,
   FilterSidebar,
-  HeroBackground,
   NewsletterSection,
   SearchBar,
   SortSelect,
@@ -94,7 +93,14 @@ export function HomePage() {
       />
 
       <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32 lg:py-36">
-        <HeroBackground />
+        <img
+          src="/images/hero-background.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-primary/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-primary/70" />
         <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 text-center sm:px-6">
           <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
             A maior vitrine digital de Atas de Registro de Preços do Brasil
