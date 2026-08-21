@@ -1,0 +1,1 @@
+export { pricingFaq } from './plans'
