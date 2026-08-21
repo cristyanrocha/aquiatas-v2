@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Mail, MapPin, MessageCircle } from 'lucide-react'
+import { useState, type ReactNode } from 'react'
+import { Mail, MapPin, MessageCircle, type LucideIcon } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -14,6 +14,19 @@ import type { ContactFormData, ContactFormErrors } from '@/types'
 const INITIAL_FORM: ContactFormData = { nome: '', email: '', telefone: '', assunto: '', mensagem: '' }
 
 const RATE_LIMIT_MS = 30_000
+
+/** Shared icon + label row for the contact info column — keeps Email/WhatsApp/Endereço icons identical in size, stroke, color, and alignment. */
+function ContactInfoRow({ icon: Icon, label, children }: { icon: LucideIcon; label: string; children: ReactNode }) {
+  return (
+    <div className="flex items-start gap-3">
+      <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
+      <div>
+        <p className="text-sm font-medium text-foreground">{label}</p>
+        {children}
+      </div>
+    </div>
+  )
+}
 
 export function ContatoPage() {
   const [form, setForm] = useState<ContactFormData>(INITIAL_FORM)
@@ -74,36 +87,24 @@ export function ContatoPage() {
 
       <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.3fr]">
         <div className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm lg:gap-8 lg:p-8">
-          <div className="flex items-start gap-3">
-            <Mail className="mt-0.5 size-5 text-brand" aria-hidden="true" />
-            <div>
-              <p className="text-sm font-medium text-foreground">Email</p>
-              <p className="text-sm text-muted-foreground">contato@aquiatas.com.br</p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <MessageCircle className="mt-0.5 size-5 text-brand" aria-hidden="true" />
-            <div>
-              <p className="text-sm font-medium text-foreground">WhatsApp</p>
-              <a
-                href={getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-brand hover:underline"
-              >
-                (61) 98101-9364
-              </a>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <MapPin className="mt-0.5 size-6 text-brand" strokeWidth={2.25} aria-hidden="true" />
-            <div>
-              <p className="text-sm font-medium text-foreground">Endereço</p>
-              <p className="text-sm text-muted-foreground">
-                SCS Quadra 1, Bloco M, nº 30, Sala 701 – Ed. Gilberto Salomão, Asa Sul, Brasília/DF, CEP 70.305-900.
-              </p>
-            </div>
-          </div>
+          <ContactInfoRow icon={Mail} label="Email">
+            <p className="text-sm text-muted-foreground">contato@aquiatas.com.br</p>
+          </ContactInfoRow>
+          <ContactInfoRow icon={MessageCircle} label="WhatsApp">
+            <a
+              href={getWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-brand hover:underline"
+            >
+              (61) 98101-9364
+            </a>
+          </ContactInfoRow>
+          <ContactInfoRow icon={MapPin} label="Endereço">
+            <p className="text-sm text-muted-foreground">
+              SCS Quadra 1, Bloco M, nº 30, Sala 701 – Ed. Gilberto Salomão, Asa Sul, Brasília/DF, CEP 70.305-900.
+            </p>
+          </ContactInfoRow>
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
