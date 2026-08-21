@@ -6,7 +6,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import {
   AtaCard,
   AtaDetailsModal,
-  CategoryQuickLinks,
   FilterSidebar,
   HeroBackground,
   NewsletterSection,
@@ -21,7 +20,6 @@ import { categoryStore } from '@/services/categoryService'
 import { ataTypeStore } from '@/services/ataTypeService'
 import { brandStore } from '@/services/brandService'
 import { ataService, EMPTY_ATA_FILTERS } from '@/services/ataService'
-import { BRAND_VALUES } from '@/constants/values'
 import type { AtaFilters, AtaSortOption, AtaWithRelations, PaginatedResult } from '@/types'
 
 const PAGE_SIZE = 9
@@ -86,16 +84,6 @@ export function HomePage() {
     resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  function handleToggleCategory(categoryId: string) {
-    setFilters((prev) => ({
-      ...prev,
-      categoriaIds: prev.categoriaIds.includes(categoryId)
-        ? prev.categoriaIds.filter((id) => id !== categoryId)
-        : [...prev.categoriaIds, categoryId],
-    }))
-    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   const activeFilterCount = filters.categoriaIds.length + filters.marcaIds.length + filters.tipoIds.length
 
   return (
@@ -105,13 +93,13 @@ export function HomePage() {
         description="Encontre produtos, fornecedores e oportunidades disponíveis em Atas vigentes de forma simples, rápida e transparente."
       />
 
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32 lg:py-36">
         <HeroBackground />
-        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-6 px-4 pt-14 pb-8 text-center sm:px-6 sm:pt-16 lg:pt-20">
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl lg:text-5xl lg:tracking-tighter">
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 text-center sm:px-6">
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
             Encontre Atas de Registro de Preços de forma simples.
           </h1>
-          <p className="max-w-2xl text-sm text-primary-foreground/80 sm:text-base lg:text-lg">
+          <p className="max-w-2xl text-base text-primary-foreground/80 sm:text-lg lg:text-xl">
             Pesquise produtos, fornecedores, órgãos e oportunidades em Atas de Registro de Preços vigentes.
           </p>
           <SearchBar
@@ -119,14 +107,7 @@ export function HomePage() {
             onChange={(value) => setFilters((prev) => ({ ...prev, search: value }))}
             size="lg"
             buttonVariant="secondary"
-            className="mt-1 w-full max-w-2xl"
-          />
-        </div>
-        <div className="relative z-10 border-t border-primary-foreground/10 bg-black/10 py-3">
-          <CategoryQuickLinks
-            categories={categories}
-            activeCategoryIds={filters.categoriaIds}
-            onToggle={handleToggleCategory}
+            className="mt-2 w-full max-w-2xl"
           />
         </div>
       </section>
@@ -187,20 +168,6 @@ export function HomePage() {
               </div>
             )}
           </div>
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-primary py-14 text-primary-foreground sm:py-16">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
-          {BRAND_VALUES.map((value) => (
-            <div key={value.title} className="flex flex-col items-center gap-3 text-center">
-              <div className="flex size-12 items-center justify-center rounded-full bg-primary-foreground/10 text-primary-foreground">
-                <value.icon className="size-6" aria-hidden="true" />
-              </div>
-              <h2 className="font-display text-base font-semibold">{value.title}</h2>
-              <p className="max-w-xs text-sm text-primary-foreground/75">{value.description}</p>
-            </div>
-          ))}
         </div>
       </section>
 
