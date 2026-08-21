@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { AdminFormHeader } from '@/components/admin'
+import { Separator } from '@/components/ui/separator'
+import { AdminFormHeader, AdminFormSection } from '@/components/admin'
 import { FormField, Seo, UploadPreview, toast } from '@/components/common'
 import { Combobox } from '@/components/forms'
 import { useEntityStore } from '@/hooks/useEntityStore'
@@ -183,145 +184,159 @@ export function AtaFormPage() {
       <Seo title={isEditing ? 'Editar ata' : 'Nova ata'} description="Formulário de ata." path={ROUTES.adminAtas} />
       <AdminFormHeader title={isEditing ? 'Editar ata' : 'Nova ata'} backHref={ROUTES.adminAtas} />
 
-      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6">
-        <UploadPreview value={form.imagemUrl} onChange={(value) => update('imagemUrl', value)} bucket="ata-images" label="Imagem" />
+      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 lg:p-8">
+        <AdminFormSection title="Produto">
+          <UploadPreview value={form.imagemUrl} onChange={(value) => update('imagemUrl', value)} bucket="ata-images" label="Imagem" />
 
-        <FormField label="Descrição" error={errors.descricao} required>
-          <Textarea rows={2} value={form.descricao} onChange={(event) => update('descricao', event.target.value)} />
-        </FormField>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Categoria" error={errors.categoriaId} required>
-            <Select value={form.categoriaId} onValueChange={(value) => update('categoriaId', value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
-                    {category.nome}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <FormField label="Descrição" error={errors.descricao} required>
+            <Textarea rows={2} value={form.descricao} onChange={(event) => update('descricao', event.target.value)} />
           </FormField>
-          <FormField label="Tipo de Ata" error={errors.tipoId} required>
-            <Select value={form.tipoId} onValueChange={(value) => update('tipoId', value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                {ataTypes.map((type) => (
-                  <SelectItem key={type.id} value={type.id}>
-                    {type.nome}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </FormField>
-        </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Marca" error={errors.marcaId} required>
-            <div>
-              <div className="flex gap-2">
-                <Select value={form.marcaId} onValueChange={(value) => update('marcaId', value)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sortedBrands.map((brand) => (
-                      <SelectItem key={brand.id} value={brand.id}>
-                        {brand.nome}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Button type="button" variant="outline" size="icon" onClick={() => setShowNewBrand((prev) => !prev)} aria-label="Adicionar marca">
-                  <Plus className="size-4" />
-                </Button>
-              </div>
-              {showNewBrand && (
-                <div className="mt-2 flex gap-2">
-                  <Input
-                    value={newBrandName}
-                    onChange={(event) => setNewBrandName(event.target.value)}
-                    placeholder="Nome da nova marca"
-                    disabled={isAddingBrand}
-                  />
-                  <Button type="button" size="sm" disabled={isAddingBrand} onClick={handleAddBrand}>
-                    {isAddingBrand ? 'Adicionando...' : 'Adicionar'}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <FormField label="Marca" error={errors.marcaId} required>
+              <div>
+                <div className="flex gap-2">
+                  <Select value={form.marcaId} onValueChange={(value) => update('marcaId', value)}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {sortedBrands.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id}>
+                          {brand.nome}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Button type="button" variant="outline" size="icon" onClick={() => setShowNewBrand((prev) => !prev)} aria-label="Adicionar marca">
+                    <Plus className="size-4" />
                   </Button>
                 </div>
-              )}
-            </div>
-          </FormField>
-          <FormField label="Órgão" error={errors.orgaoId} required>
-            <Combobox
-              value={form.orgaoId}
-              onChange={(value) => update('orgaoId', value)}
-              options={agencyOptions}
-              placeholder="Selecione"
-              searchPlaceholder="Pesquisar órgão..."
-              emptyMessage="Nenhum órgão encontrado."
-            />
-          </FormField>
-        </div>
+                {showNewBrand && (
+                  <div className="mt-2 flex gap-2">
+                    <Input
+                      value={newBrandName}
+                      onChange={(event) => setNewBrandName(event.target.value)}
+                      placeholder="Nome da nova marca"
+                      disabled={isAddingBrand}
+                    />
+                    <Button type="button" size="sm" disabled={isAddingBrand} onClick={handleAddBrand}>
+                      {isAddingBrand ? 'Adicionando...' : 'Adicionar'}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </FormField>
+            <FormField label="Categoria" error={errors.categoriaId} required>
+              <Select value={form.categoriaId} onValueChange={(value) => update('categoriaId', value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.nome}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormField>
+          </div>
+        </AdminFormSection>
 
-        <FormField label="Parceiro responsável" error={errors.partnerId} required>
-          <Select value={form.partnerId} onValueChange={(value) => update('partnerId', value)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Selecione" />
-            </SelectTrigger>
-            <SelectContent>
-              {partners.map((partner) => (
-                <SelectItem key={partner.id} value={partner.id}>
-                  {partner.nomeFantasia}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </FormField>
+        <Separator />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Pregão" error={errors.numeroAta} required>
-            <Input value={form.numeroAta} onChange={(event) => update('numeroAta', event.target.value)} placeholder="000/0000" />
-          </FormField>
-          <FormField label="Número do Processo">
-            <Input value={form.numeroProcesso} onChange={(event) => update('numeroProcesso', event.target.value)} />
-          </FormField>
-        </div>
+        <AdminFormSection title="Ata / Processo">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <FormField label="Pregão" error={errors.numeroAta} required>
+              <Input value={form.numeroAta} onChange={(event) => update('numeroAta', event.target.value)} placeholder="000/0000" />
+            </FormField>
+            <FormField label="Número do Processo">
+              <Input value={form.numeroProcesso} onChange={(event) => update('numeroProcesso', event.target.value)} />
+            </FormField>
+          </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Vigência - início" required>
-            <Input
-              type="date"
-              value={toDateInputValue(form.dataVigenciaInicio)}
-              onChange={(event) => update('dataVigenciaInicio', fromDateInputValue(event.target.value))}
-            />
-          </FormField>
-          <FormField label="Vigência - fim" error={errors.dataVigenciaFim} required>
-            <Input
-              type="date"
-              value={toDateInputValue(form.dataVigenciaFim)}
-              onChange={(event) => update('dataVigenciaFim', fromDateInputValue(event.target.value))}
-            />
-          </FormField>
-        </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <FormField label="Órgão" error={errors.orgaoId} required>
+              <Combobox
+                value={form.orgaoId}
+                onChange={(value) => update('orgaoId', value)}
+                options={agencyOptions}
+                placeholder="Selecione"
+                searchPlaceholder="Pesquisar órgão..."
+                emptyMessage="Nenhum órgão encontrado."
+              />
+            </FormField>
+            <FormField label="Tipo de Ata" error={errors.tipoId} required>
+              <Select value={form.tipoId} onValueChange={(value) => update('tipoId', value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione" />
+                </SelectTrigger>
+                <SelectContent>
+                  {ataTypes.map((type) => (
+                    <SelectItem key={type.id} value={type.id}>
+                      {type.nome}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormField>
+          </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <FormField label="Quantidade" error={errors.quantidade} required>
-            <Input type="number" min="0" value={form.quantidade} onChange={(event) => update('quantidade', event.target.value)} />
-          </FormField>
-          <FormField label="Unidade de medida" required>
-            <Input value={form.unidadeMedida} onChange={(event) => update('unidadeMedida', event.target.value)} />
-          </FormField>
-          <FormField label="Valor unitário (R$)" error={errors.valorUnitario} required>
-            <Input type="number" min="0" step="0.01" value={form.valorUnitario} onChange={(event) => update('valorUnitario', event.target.value)} />
-          </FormField>
-        </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <FormField label="Vigência - início" required>
+              <Input
+                type="date"
+                value={toDateInputValue(form.dataVigenciaInicio)}
+                onChange={(event) => update('dataVigenciaInicio', fromDateInputValue(event.target.value))}
+              />
+            </FormField>
+            <FormField label="Vigência - fim" error={errors.dataVigenciaFim} required>
+              <Input
+                type="date"
+                value={toDateInputValue(form.dataVigenciaFim)}
+                onChange={(event) => update('dataVigenciaFim', fromDateInputValue(event.target.value))}
+              />
+            </FormField>
+          </div>
+        </AdminFormSection>
 
-        <div className="mt-2 flex justify-end gap-2">
+        <Separator />
+
+        <AdminFormSection title="Registro">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <FormField label="Quantidade" error={errors.quantidade} required>
+              <Input type="number" min="0" value={form.quantidade} onChange={(event) => update('quantidade', event.target.value)} />
+            </FormField>
+            <FormField label="Unidade de medida" required>
+              <Input value={form.unidadeMedida} onChange={(event) => update('unidadeMedida', event.target.value)} />
+            </FormField>
+            <FormField label="Valor unitário (R$)" error={errors.valorUnitario} required>
+              <Input type="number" min="0" step="0.01" value={form.valorUnitario} onChange={(event) => update('valorUnitario', event.target.value)} />
+            </FormField>
+          </div>
+        </AdminFormSection>
+
+        <Separator />
+
+        <AdminFormSection title="Parceiro">
+          <FormField label="Parceiro responsável" error={errors.partnerId} required>
+            <Select value={form.partnerId} onValueChange={(value) => update('partnerId', value)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Selecione" />
+              </SelectTrigger>
+              <SelectContent>
+                {partners.map((partner) => (
+                  <SelectItem key={partner.id} value={partner.id}>
+                    {partner.nomeFantasia}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+        </AdminFormSection>
+
+        <div className="flex justify-end gap-2 border-t border-border pt-6">
           <Button type="button" variant="outline" onClick={() => navigate(ROUTES.adminAtas)}>
             Cancelar
           </Button>

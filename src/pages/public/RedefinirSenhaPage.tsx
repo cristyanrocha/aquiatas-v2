@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FileStack } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { FormField, Seo, toast } from '@/components/common'
 import { PasswordInput } from '@/components/forms'
+import { AuthPageShell } from '@/components/public'
 import { useAuth } from '@/hooks/useAuth'
 import { supabase } from '@/integrations/supabase/client'
 import { ROUTES } from '@/constants/routes'
@@ -61,16 +61,9 @@ export function RedefinirSenhaPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
+    <>
       <Seo title="Redefinir senha" description="Defina uma nova senha para sua conta AquiAtas." path={ROUTES.redefinirSenha} />
-
-      <div className="mb-8 flex flex-col items-center gap-2 text-center">
-        <FileStack className="size-8 text-brand" aria-hidden="true" />
-        <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Redefinir senha</h1>
-        <p className="text-sm text-muted-foreground">Escolha uma nova senha para acessar sua conta.</p>
-      </div>
-
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <AuthPageShell title="Redefinir senha" description="Escolha uma nova senha para acessar sua conta.">
         {isRecoverySession === false ? (
           <div className="flex flex-col items-center gap-3 py-4 text-center">
             <p className="text-sm text-foreground">
@@ -102,7 +95,7 @@ export function RedefinirSenhaPage() {
             </Button>
           </form>
         )}
-      </div>
-    </div>
+      </AuthPageShell>
+    </>
   )
 }

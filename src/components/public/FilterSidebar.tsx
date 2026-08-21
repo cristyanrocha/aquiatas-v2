@@ -1,11 +1,13 @@
-import { Fragment } from 'react'
-import { X } from 'lucide-react'
+import { Fragment, useMemo, useState } from 'react'
+import { Search, X } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import type { AtaFilters, AtaType, Brand, Category } from '@/types'
 import { EMPTY_ATA_FILTERS } from '@/services/ataService'
+import { textIncludes } from '@/utils/text'
 
 interface FilterSidebarProps {
   filters: AtaFilters
@@ -26,6 +28,8 @@ function byLabel(a: { label: string }, b: { label: string }): number {
   return a.label.localeCompare(b.label, 'pt-BR')
 }
 
+const SEARCHABLE_THRESHOLD = 8
+
 function FilterGroup({
   title,
   options,
@@ -37,25 +41,58 @@ function FilterGroup({
   selected: string[]
   onToggle: (id: string) => void
 }) {
+  const [query, setQuery] = useState('')
+  const isSearchable = options.length > SEARCHABLE_THRESHOLD
+
+  const visibleOptions = useMemo(() => {
+    if (!isSearchable || !query.trim()) return options
+    return options.filter((option) => textIncludes(option.label, query))
+  }, [options, query, isSearchable])
+
   return (
     <div className="flex flex-col gap-2.5">
-      <h3 className="text-sm font-semibold text-foreground">{title}</h3>
-      <div className="flex max-h-56 flex-col gap-2 overflow-y-auto pr-1 sm:max-h-64 lg:max-h-72">
-        {options.map((option) => {
-          const checkboxId = `filter-${title}-${option.id}`
-          return (
-            <div key={option.id} className="flex items-center gap-2">
-              <Checkbox
-                id={checkboxId}
-                checked={selected.includes(option.id)}
-                onCheckedChange={() => onToggle(option.id)}
-              />
-              <Label htmlFor={checkboxId} className="cursor-pointer text-sm font-normal text-muted-foreground">
-                {option.label}
-              </Label>
-            </div>
-          )
-        })}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+        {selected.length > 0 && (
+          <span className="rounded-full bg-primary-light px-2 py-0.5 text-[11px] font-medium text-brand">
+            {selected.length}
+          </span>
+        )}
+      </div>
+
+      {isSearchable && (
+        <div className="relative">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+          <Input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={`Buscar em ${title.toLowerCase()}...`}
+            aria-label={`Buscar em ${title}`}
+            className="h-8 pl-8 text-xs"
+          />
+        </div>
+      )}
+
+      <div className="flex max-h-64 flex-col gap-0.5 overflow-y-auto pr-1 sm:max-h-72">
+        {visibleOptions.length === 0 ? (
+          <p className="py-1.5 text-xs text-muted-foreground">Nenhuma opção encontrada.</p>
+        ) : (
+          visibleOptions.map((option) => {
+            const checkboxId = `filter-${title}-${option.id}`
+            return (
+              <div key={option.id} className="flex items-center gap-2 rounded-md py-1.5 hover:bg-muted/60">
+                <Checkbox
+                  id={checkboxId}
+                  checked={selected.includes(option.id)}
+                  onCheckedChange={() => onToggle(option.id)}
+                />
+                <Label htmlFor={checkboxId} className="w-full cursor-pointer text-sm font-normal text-muted-foreground">
+                  {option.label}
+                </Label>
+              </div>
+            )
+          })
+        )}
       </div>
     </div>
   )
@@ -93,10 +130,8 @@ export function FilterSidebar({
   return (
     <aside className={className} aria-label="Filtros de busca">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-foreground">Filtros</h2>
-        {hasActiveFilters && (
-          <span className="text-xs text-muted-foreground">{resultCount} resultado(s)</span>
-        )}
+        <h2 className="font-display text-base font-semibold text-foreground">Filtros</h2>
+        <span className="text-xs text-muted-foreground">{resultCount} resultado(s)</span>
       </div>
 
       {hasActiveFilters && (

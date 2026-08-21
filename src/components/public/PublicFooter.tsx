@@ -1,75 +1,84 @@
 import { Link } from 'react-router-dom'
-import { FileStack } from 'lucide-react'
-import { PUBLIC_NAV_LINKS } from '@/constants/nav'
-import { SOCIAL_LINKS } from '@/constants/social'
-import { SocialIcon } from '@/components/common/SocialIcon'
+import { FileStack, MessageCircle } from 'lucide-react'
+import { SOCIAL_LINKS, getWhatsAppUrl } from '@/constants/social'
+import { SocialIconLink } from '@/components/common'
 import { ROUTES } from '@/constants/routes'
+
+const PLATFORM_LINKS = [
+  { label: 'Buscar Atas', href: ROUTES.home },
+  { label: 'Parceiros', href: ROUTES.parceiros },
+  { label: 'Órgãos Públicos', href: ROUTES.orgaos },
+  { label: 'Planos e Preços', href: ROUTES.precos },
+]
+
+const LEGAL_LINKS = [
+  { label: 'Termos de Uso', href: ROUTES.termosDeUso },
+  { label: 'Política de Privacidade', href: ROUTES.politicaDePrivacidade },
+]
+
+function FooterLinkList({ links }: { links: { label: string; href: string }[] }) {
+  return (
+    <ul className="flex flex-col gap-2.5">
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link to={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export function PublicFooter() {
   return (
     <footer className="border-t border-border bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col gap-3">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="flex flex-col gap-3 pr-4">
             <Link to="/" className="flex items-center gap-2 font-semibold text-brand">
               <FileStack className="size-6" aria-hidden="true" />
-              <span className="text-lg tracking-tight">AquiAtas</span>
+              <span className="font-display text-lg tracking-tight">AquiAtas</span>
             </Link>
-            <p className="text-sm text-muted-foreground">
-              A vitrine digital das Atas de Registro de Preços do Brasil.
+            <p className="max-w-xs text-sm text-muted-foreground">
+              A vitrine digital das Atas de Registro de Preços do Brasil — conectando órgãos públicos e fornecedores
+              com simplicidade e transparência.
             </p>
-          </div>
-
-          <div>
-            <h3 className="mb-3 text-sm font-semibold text-foreground">Navegação</h3>
-            <ul className="flex flex-col gap-2">
-              {PUBLIC_NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-3 text-sm font-semibold text-foreground">Legal</h3>
-            <ul className="flex flex-col gap-2">
-              <li>
-                <Link to={ROUTES.termosDeUso} className="text-sm text-muted-foreground hover:text-foreground">
-                  Termos de Uso
-                </Link>
-              </li>
-              <li>
-                <Link to={ROUTES.politicaDePrivacidade} className="text-sm text-muted-foreground hover:text-foreground">
-                  Política de Privacidade
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-3 text-sm font-semibold text-foreground">Redes sociais</h3>
-            <ul className="flex flex-wrap gap-2">
+            <ul className="mt-1 flex flex-wrap gap-2">
               {SOCIAL_LINKS.map((social) => (
                 <li key={social.icon}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-200 hover:border-brand hover:bg-primary-light hover:text-brand"
-                  >
-                    <SocialIcon icon={social.icon} />
-                  </a>
+                  <SocialIconLink social={social} />
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">AquiAtas</h3>
+            <FooterLinkList links={[{ label: 'Quem Somos', href: ROUTES.quemSomos }, { label: 'Contato', href: ROUTES.contato }]} />
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">Plataforma</h3>
+            <FooterLinkList links={PLATFORM_LINKS} />
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">Legal</h3>
+            <FooterLinkList links={LEGAL_LINKS} />
+            <a
+              href={getWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <MessageCircle className="size-4 shrink-0" aria-hidden="true" />
+              Fale pelo WhatsApp
+            </a>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>© {new Date().getFullYear()} AquiAtas. Todos os direitos reservados.</p>
           <p>Feito com transparência para o setor público.</p>
         </div>

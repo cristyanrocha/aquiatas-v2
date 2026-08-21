@@ -68,12 +68,12 @@ export function ContatoPage() {
       />
 
       <div className="text-center">
-        <h1 className="text-3xl font-semibold text-foreground sm:text-4xl">Fale Conosco</h1>
+        <h1 className="font-display text-3xl font-semibold text-foreground sm:text-4xl">Fale Conosco</h1>
         <p className="mt-2 text-sm text-muted-foreground">Tire suas dúvidas ou envie uma sugestão para nossa equipe.</p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.3fr]">
-        <div className="flex flex-col gap-6">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.3fr]">
+        <div className="flex flex-col gap-6 rounded-2xl border border-border bg-card p-6 shadow-sm lg:gap-8 lg:p-8">
           <div className="flex items-start gap-3">
             <Mail className="mt-0.5 size-5 text-brand" aria-hidden="true" />
             <div>

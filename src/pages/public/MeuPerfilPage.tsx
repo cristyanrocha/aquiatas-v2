@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { FormField, Seo } from '@/components/common'
 import { MaskedInput } from '@/components/forms'
+import { AuthPageShell } from '@/components/public'
 import { useAuth } from '@/hooks/useAuth'
 import { maskPhone, unmask } from '@/utils/masks'
 import { isValidPhoneDigits, validateOrgaoPublico } from '@/utils/validation'
@@ -64,48 +65,43 @@ export function MeuPerfilPage() {
   }
 
   return (
-    <div className="mx-auto max-w-md px-4 py-12 sm:px-6 lg:px-8">
+    <>
       <Seo title="Meu Perfil" description="Atualize as informações do seu perfil na AquiAtas." path={ROUTES.meuPerfil} />
+      <AuthPageShell icon={UserRound} title="Meu Perfil" description="Atualize suas informações cadastrais.">
+        <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+          <FormField label="Nome completo" error={errors.nome} required>
+            <Input value={form.nome} onChange={(event) => update('nome', event.target.value)} autoComplete="name" />
+          </FormField>
 
-      <div className="mb-8 flex flex-col items-center gap-2 text-center">
-        <UserRound className="size-8 text-brand" aria-hidden="true" />
-        <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Meu Perfil</h1>
-        <p className="text-sm text-muted-foreground">Atualize suas informações cadastrais.</p>
-      </div>
+          <FormField label="Email">
+            <Input value={user.email} disabled />
+          </FormField>
 
-      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <FormField label="Nome completo" error={errors.nome} required>
-          <Input value={form.nome} onChange={(event) => update('nome', event.target.value)} autoComplete="name" />
-        </FormField>
+          <FormField label="Telefone ou celular" error={errors.telefone} hint={!errors.telefone ? 'Opcional' : undefined}>
+            <MaskedInput
+              mask={maskPhone}
+              value={form.telefone}
+              onChange={(value) => update('telefone', value)}
+              placeholder="(00) 00000-0000"
+              autoComplete="tel"
+            />
+          </FormField>
 
-        <FormField label="Email">
-          <Input value={user.email} disabled />
-        </FormField>
+          <FormField label="Empresa / Órgão Público" error={errors.orgaoPublico} required>
+            <Input
+              value={form.orgaoPublico}
+              onChange={(event) => update('orgaoPublico', event.target.value)}
+              maxLength={150}
+              autoComplete="organization"
+              placeholder="Digite o nome da empresa ou órgão público"
+            />
+          </FormField>
 
-        <FormField label="Telefone ou celular" error={errors.telefone} hint={!errors.telefone ? 'Opcional' : undefined}>
-          <MaskedInput
-            mask={maskPhone}
-            value={form.telefone}
-            onChange={(value) => update('telefone', value)}
-            placeholder="(00) 00000-0000"
-            autoComplete="tel"
-          />
-        </FormField>
-
-        <FormField label="Empresa / Órgão Público" error={errors.orgaoPublico} required>
-          <Input
-            value={form.orgaoPublico}
-            onChange={(event) => update('orgaoPublico', event.target.value)}
-            maxLength={150}
-            autoComplete="organization"
-            placeholder="Digite o nome da empresa ou órgão público"
-          />
-        </FormField>
-
-        <Button type="submit" disabled={isSubmitting} className="mt-1">
-          {isSubmitting ? 'Salvando...' : 'Salvar alterações'}
-        </Button>
-      </form>
-    </div>
+          <Button type="submit" disabled={isSubmitting} className="mt-1">
+            {isSubmitting ? 'Salvando...' : 'Salvar alterações'}
+          </Button>
+        </form>
+      </AuthPageShell>
+    </>
   )
 }

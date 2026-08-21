@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Menu, LayoutDashboard, LogOut, FileStack, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -16,18 +16,34 @@ import { Navigation } from './Navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { ROUTES } from '@/constants/routes'
 import { canAccessAdminPanel, ROLE_LABELS } from '@/utils/permissions'
+import { cn } from '@/lib/utils'
 
 export function PublicHeader() {
   const { user, isAuthenticated, logout } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 8)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+    <header
+      className={cn(
+        'sticky top-0 z-30 border-b bg-background/85 backdrop-blur-md transition-shadow duration-300 supports-backdrop-filter:bg-background/70',
+        scrolled ? 'border-border shadow-sm' : 'border-transparent',
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
         <Link to={ROUTES.home} className="flex shrink-0 items-center gap-3 font-semibold text-brand">
           <FileStack className="size-8" aria-hidden="true" />
-          <span className="text-2xl tracking-tight">AquiAtas</span>
+          <span className="font-display text-2xl font-semibold tracking-tight">AquiAtas</span>
         </Link>
 
         <Navigation className="hidden lg:flex" />

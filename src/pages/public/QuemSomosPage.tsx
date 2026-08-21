@@ -1,5 +1,5 @@
 import { Eye, ShieldCheck, Sparkles, Target } from 'lucide-react'
-import { Seo, SocialIcon } from '@/components/common'
+import { Seo, SocialIconLink } from '@/components/common'
 import { SOCIAL_LINKS } from '@/constants/social'
 
 const VALUES = [
@@ -17,7 +17,7 @@ export function QuemSomosPage() {
         path="/quem-somos"
       />
 
-      <h1 className="text-center text-3xl font-semibold text-foreground sm:text-4xl">Quem Somos</h1>
+      <h1 className="text-center font-display text-3xl font-semibold text-foreground sm:text-4xl">Quem Somos</h1>
 
       <div className="mt-10">
         <div className="flex flex-col gap-4 text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -77,16 +77,7 @@ export function QuemSomosPage() {
         <h2 className="text-sm font-semibold text-foreground">Siga a AquiAtas</h2>
         <div className="flex gap-2">
           {SOCIAL_LINKS.map((social) => (
-            <a
-              key={social.icon}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.label}
-              className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-200 hover:border-brand hover:bg-primary-light hover:text-brand"
-            >
-              <SocialIcon icon={social.icon} />
-            </a>
+            <SocialIconLink key={social.icon} social={social} />
           ))}
         </div>
       </div>

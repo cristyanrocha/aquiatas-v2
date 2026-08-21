@@ -17,7 +17,7 @@ export function AdminSidebar({ className, onNavigate, onClose }: AdminSidebarPro
       <div className="flex h-16 items-center justify-between px-4">
         <Link to={ROUTES.home} className="flex items-center gap-2 font-semibold">
           <FileStack className="size-6" aria-hidden="true" />
-          <span className="text-lg tracking-tight">AquiAtas</span>
+          <span className="font-display text-lg tracking-tight">AquiAtas</span>
         </Link>
         {onClose && (
           <Button variant="ghost" size="icon" onClick={onClose} className="text-sidebar-foreground lg:hidden">
@@ -34,8 +34,8 @@ export function AdminSidebar({ className, onNavigate, onClose }: AdminSidebarPro
             onClick={onNavigate}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
-                isActive && 'bg-sidebar-accent text-sidebar-accent-foreground',
+                'flex items-center gap-3 rounded-lg border-l-2 border-transparent px-3 py-2.5 text-sm font-medium text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
+                isActive && 'border-sidebar-primary bg-sidebar-accent text-sidebar-accent-foreground',
               )
             }
           >

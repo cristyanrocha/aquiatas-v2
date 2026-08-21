@@ -7,6 +7,7 @@ import {
   AtaCard,
   AtaDetailsModal,
   FilterSidebar,
+  HeroBackground,
   NewsletterSection,
   SearchBar,
   SortSelect,
@@ -92,14 +93,14 @@ export function HomePage() {
         description="Encontre produtos, fornecedores e oportunidades disponíveis em Atas vigentes de forma simples, rápida e transparente."
       />
 
-      <section className="relative overflow-hidden bg-primary py-20 text-primary-foreground sm:py-28 lg:py-40">
+      <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32 lg:py-36">
+        <HeroBackground />
         <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 text-center sm:px-6">
-          <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
-            A maior vitrine digital de Atas de Registro de Preços do Brasil
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
+            Encontre Atas de Registro de Preços de forma simples.
           </h1>
           <p className="max-w-2xl text-base text-primary-foreground/80 sm:text-lg lg:text-xl">
-            Encontre produtos, fornecedores e oportunidades disponíveis em Atas vigentes de forma simples, rápida e
-            transparente.
+            Pesquise produtos, fornecedores, órgãos e oportunidades em Atas de Registro de Preços vigentes.
           </p>
           <SearchBar
             value={filters.search}
@@ -111,8 +112,8 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-4 py-10 pb-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
+      <section className="mx-auto w-full max-w-7xl px-4 py-10 pb-20 sm:px-6 lg:px-8 lg:py-14">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[272px_1fr]">
           <FilterSidebar
             filters={filters}
             onFiltersChange={setFilters}
@@ -120,27 +121,29 @@ export function HomePage() {
             brands={brands}
             ataTypes={ataTypes}
             resultCount={result.total}
-            className="hidden rounded-xl border border-border bg-card p-5 shadow-sm lg:block"
+            className="hidden self-start rounded-xl border border-border bg-card p-5 shadow-sm lg:sticky lg:top-24 lg:block"
           />
 
-          <div ref={resultsRef} className="flex scroll-mt-24 flex-col gap-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Button
-                variant="outline"
-                className="lg:hidden"
-                onClick={() => setMobileFiltersOpen(true)}
-              >
-                <SlidersHorizontal className="size-4" />
-                Filtros
-                {activeFilterCount > 0 && (
-                  <span className="ml-1 flex size-5 items-center justify-center rounded-full bg-brand text-xs text-primary-foreground">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </Button>
-              <span className="text-sm text-muted-foreground">
-                {isLoading ? 'Buscando...' : `${result.total} ata(s) encontrada(s)`}
-              </span>
+          <div ref={resultsRef} className="flex scroll-mt-24 flex-col gap-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="outline"
+                  className="lg:hidden"
+                  onClick={() => setMobileFiltersOpen(true)}
+                >
+                  <SlidersHorizontal className="size-4" />
+                  Filtros
+                  {activeFilterCount > 0 && (
+                    <span className="ml-1 flex size-5 items-center justify-center rounded-full bg-brand text-xs text-primary-foreground">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  {isLoading ? 'Buscando...' : `${result.total} ata(s) encontrada(s)`}
+                </span>
+              </div>
               <SortSelect value={sort} onChange={setSort} />
             </div>
 
@@ -173,11 +176,11 @@ export function HomePage() {
       <AtaDetailsModal ata={selectedAta} open={modalOpen} onOpenChange={setModalOpen} />
 
       <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-        <SheetContent side="right" className="w-full max-w-sm overflow-y-auto">
+        <SheetContent side="right" className="flex w-full max-w-sm flex-col">
           <SheetHeader>
             <SheetTitle>Filtros</SheetTitle>
           </SheetHeader>
-          <div className="px-4 pb-6">
+          <div className="flex-1 overflow-y-auto px-4 pb-6">
             <FilterSidebar
               filters={filters}
               onFiltersChange={setFilters}
@@ -186,6 +189,11 @@ export function HomePage() {
               ataTypes={ataTypes}
               resultCount={result.total}
             />
+          </div>
+          <div className="border-t border-border p-4">
+            <Button className="w-full" onClick={() => setMobileFiltersOpen(false)}>
+              Ver {result.total} resultado(s)
+            </Button>
           </div>
         </SheetContent>
       </Sheet>

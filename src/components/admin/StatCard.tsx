@@ -16,7 +16,7 @@ const TONE_STYLES: Record<NonNullable<StatCardProps['tone']>, string> = {
 
 export function StatCard({ label, value, icon: Icon, tone = 'default' }: StatCardProps) {
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm">
+    <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <span className={cn('flex size-11 shrink-0 items-center justify-center rounded-lg', TONE_STYLES[tone])}>
         <Icon className="size-5" aria-hidden="true" />
       </span>

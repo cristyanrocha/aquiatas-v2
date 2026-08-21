@@ -3,17 +3,27 @@ import { Link } from 'react-router-dom'
 import { FileStack, Building2, Landmark, Users, CheckCircle2, AlertTriangle } from 'lucide-react'
 import { StatCard, SimpleBarChart } from '@/components/admin'
 import { StatusBadge } from '@/components/common/StatusBadge'
-import { Seo } from '@/components/common'
+import { DataTable, Seo, type DataTableColumn } from '@/components/common'
 import { dashboardService, type DashboardSummary } from '@/services/dashboardService'
 import { formatCurrencyBRL, formatDateBR } from '@/utils/format'
 import { ROUTES } from '@/constants/routes'
 import type { AtaSituacao } from '@/types'
+
+type LatestAta = DashboardSummary['latest_atas'][number]
 
 const SITUATION_MAP: Record<DashboardSummary['latest_atas'][number]['situation'], AtaSituacao> = {
   active: 'vigente',
   expiring: 'proxima_vencimento',
   expired: 'vencida',
 }
+
+const LATEST_ATAS_COLUMNS: DataTableColumn<LatestAta>[] = [
+  { key: 'title', header: 'Descrição', render: (ata) => <span className="max-w-64 truncate font-medium text-foreground">{ata.title}</span> },
+  { key: 'agency_name', header: 'Órgão', render: (ata) => ata.agency_name },
+  { key: 'unit_price', header: 'Valor', render: (ata) => formatCurrencyBRL(ata.unit_price) },
+  { key: 'expiration_date', header: 'Validade', render: (ata) => formatDateBR(ata.expiration_date) },
+  { key: 'situation', header: 'Situação', render: (ata) => <StatusBadge situacao={SITUATION_MAP[ata.situation]} /> },
+]
 
 export function DashboardPage() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null)
@@ -39,7 +49,7 @@ export function DashboardPage() {
       <Seo title="Dashboard" description="Painel administrativo AquiAtas." path={ROUTES.admin} />
 
       <div>
-        <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">Dashboard</h1>
+        <h1 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">Dashboard</h1>
         <p className="text-sm text-muted-foreground">Visão geral da plataforma AquiAtas.</p>
       </div>
 
@@ -67,39 +77,20 @@ export function DashboardPage() {
             />
           </div>
 
-          <div className="rounded-xl border border-border bg-card shadow-sm">
-            <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <h2 className="text-sm font-semibold text-foreground">Últimas atas cadastradas</h2>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-sm font-semibold text-foreground">Últimas atas cadastradas</h2>
               <Link to={ROUTES.adminAtas} className="text-xs font-medium text-brand hover:underline">
                 Ver todas
               </Link>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left text-xs text-muted-foreground">
-                    <th className="px-5 py-2.5 font-medium">Descrição</th>
-                    <th className="px-5 py-2.5 font-medium">Órgão</th>
-                    <th className="px-5 py-2.5 font-medium">Valor</th>
-                    <th className="px-5 py-2.5 font-medium">Validade</th>
-                    <th className="px-5 py-2.5 font-medium">Situação</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {summary.latest_atas.map((ata) => (
-                    <tr key={ata.id} className="border-b border-border last:border-0">
-                      <td className="max-w-64 truncate px-5 py-3 font-medium text-foreground">{ata.title}</td>
-                      <td className="px-5 py-3 text-muted-foreground">{ata.agency_name}</td>
-                      <td className="px-5 py-3 text-muted-foreground">{formatCurrencyBRL(ata.unit_price)}</td>
-                      <td className="px-5 py-3 text-muted-foreground">{formatDateBR(ata.expiration_date)}</td>
-                      <td className="px-5 py-3">
-                        <StatusBadge situacao={SITUATION_MAP[ata.situation]} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              columns={LATEST_ATAS_COLUMNS}
+              data={summary.latest_atas}
+              rowKey={(ata) => String(ata.id)}
+              emptyTitle="Nenhuma ata cadastrada"
+              emptyDescription="Cadastre a primeira ata para vê-la aqui."
+            />
           </div>
         </>
       )}
