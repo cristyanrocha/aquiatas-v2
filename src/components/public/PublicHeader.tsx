@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Menu, LayoutDashboard, LogOut, FileStack, UserRound } from 'lucide-react'
+import { Menu, LayoutDashboard, LogOut, UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import {
@@ -41,9 +41,8 @@ export function PublicHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
-        <Link to={ROUTES.home} className="flex shrink-0 items-center gap-3 font-semibold text-brand">
-          <FileStack className="size-8" aria-hidden="true" />
-          <span className="font-display text-2xl font-semibold tracking-tight">AquiAtas</span>
+        <Link to={ROUTES.home} className="flex shrink-0 items-center">
+          <img src="/images/logo.png" alt="AquiAtas" className="h-9 w-auto" />
         </Link>
 
         <Navigation className="hidden lg:flex" />

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileStack, MessageCircle } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { SOCIAL_LINKS, getWhatsAppUrl } from '@/constants/social'
 import { SocialIconLink } from '@/components/common'
 import { ROUTES } from '@/constants/routes'
@@ -36,9 +36,8 @@ export function PublicFooter() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-3 pr-4">
-            <Link to="/" className="flex items-center gap-2 font-semibold text-brand">
-              <FileStack className="size-6" aria-hidden="true" />
-              <span className="font-display text-lg tracking-tight">AquiAtas</span>
+            <Link to="/" className="flex items-center">
+              <img src="/images/logo.png" alt="AquiAtas" className="h-7 w-auto" />
             </Link>
             <p className="max-w-xs text-sm text-muted-foreground">
               A vitrine digital das Atas de Registro de Preços do Brasil — conectando órgãos públicos e fornecedores
