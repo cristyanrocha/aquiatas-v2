@@ -1,12 +1,7 @@
-import { Eye, ShieldCheck, Sparkles, Target } from 'lucide-react'
+import { Eye, Target } from 'lucide-react'
 import { Seo, SocialIconLink } from '@/components/common'
 import { SOCIAL_LINKS } from '@/constants/social'
-
-const VALUES = [
-  { icon: ShieldCheck, title: 'Transparência', description: 'Informações claras e acessíveis sobre atas e fornecedores.' },
-  { icon: Sparkles, title: 'Simplicidade', description: 'Tecnologia que facilita, sem burocracia desnecessária.' },
-  { icon: Target, title: 'Eficiência', description: 'Conectamos oferta e demanda do setor público de forma direta.' },
-]
+import { BRAND_VALUES } from '@/constants/values'
 
 export function QuemSomosPage() {
   return (
@@ -63,7 +58,7 @@ export function QuemSomosPage() {
       <div className="mt-12">
         <h2 className="mb-4 text-center text-lg font-semibold text-foreground">Valores</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {VALUES.map((value) => (
+          {BRAND_VALUES.map((value) => (
             <div key={value.title} className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-6 text-center shadow-sm">
               <value.icon className="size-6 text-brand" aria-hidden="true" />
               <h3 className="text-lg font-semibold text-nowrap text-foreground">{value.title}</h3>
