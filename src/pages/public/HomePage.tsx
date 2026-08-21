@@ -97,7 +97,7 @@ export function HomePage() {
         <HeroBackground />
         <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 text-center sm:px-6">
           <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
-            Encontre Atas de Registro de Preços de forma simples.
+            A maior vitrine digital de Atas de Registro de Preços do Brasil
           </h1>
           <p className="max-w-2xl text-base text-primary-foreground/80 sm:text-lg lg:text-xl">
             Pesquise produtos, fornecedores, órgãos e oportunidades em Atas de Registro de Preços vigentes.
