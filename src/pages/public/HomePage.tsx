@@ -49,6 +49,7 @@ export function HomePage() {
   const [selectedAta, setSelectedAta] = useState<AtaWithRelations | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const resultsRef = useRef<HTMLDivElement>(null)
+  const pendingFilterScrollRef = useRef(false)
 
   const debouncedSearch = useDebounce(filters.search, 300)
   const effectiveFilters = useMemo(() => ({ ...filters, search: debouncedSearch }), [filters, debouncedSearch])
@@ -66,7 +67,13 @@ export function HomePage() {
         if (!cancelled) setResult(data)
       })
       .finally(() => {
-        if (!cancelled) setIsLoading(false)
+        if (!cancelled) {
+          setIsLoading(false)
+          if (pendingFilterScrollRef.current) {
+            pendingFilterScrollRef.current = false
+            resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }
       })
     return () => {
       cancelled = true
@@ -76,6 +83,11 @@ export function HomePage() {
   function handleOpenDetails(ata: AtaWithRelations) {
     setSelectedAta(ata)
     setModalOpen(true)
+  }
+
+  function handleFiltersChange(next: AtaFilters) {
+    pendingFilterScrollRef.current = true
+    setFilters(next)
   }
 
   function handlePageChange(nextPage: number) {
@@ -120,7 +132,7 @@ export function HomePage() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[272px_1fr]">
           <FilterSidebar
             filters={filters}
-            onFiltersChange={setFilters}
+            onFiltersChange={handleFiltersChange}
             categories={categories}
             brands={brands}
             ataTypes={ataTypes}
@@ -187,7 +199,7 @@ export function HomePage() {
           <div className="flex-1 overflow-y-auto px-4 pb-6">
             <FilterSidebar
               filters={filters}
-              onFiltersChange={setFilters}
+              onFiltersChange={handleFiltersChange}
               categories={categories}
               brands={brands}
               ataTypes={ataTypes}
