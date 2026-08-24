@@ -135,7 +135,11 @@ export function ContatoPage() {
           <FormField label="Mensagem" error={errors.mensagem} required>
             <Textarea rows={5} value={form.mensagem} onChange={(event) => updateField('mensagem', event.target.value)} />
           </FormField>
-          <Button type="submit" disabled={isSubmitting} className="mt-2">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-2 bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+          >
             {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
           </Button>
         </form>
