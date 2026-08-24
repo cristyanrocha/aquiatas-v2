@@ -52,6 +52,7 @@ export function LoginPage() {
       <AuthPageShell
         title="Entrar na AquiAtas"
         description="Acesse para visualizar os parceiros responsáveis pelas atas."
+        showIcon={false}
         footer={
           <>
             <p>

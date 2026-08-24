@@ -26,6 +26,7 @@ export function RegisterPage() {
       <AuthPageShell
         title="Crie sua conta"
         description="Cadastre-se para visualizar os dados completos dos parceiros responsáveis pelas atas."
+        showIcon={false}
         footer={
           <>
             <p>
