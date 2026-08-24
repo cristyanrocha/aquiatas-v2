@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FileStack, X } from 'lucide-react'
 import { ADMIN_NAV_ITEMS } from '@/constants/adminNav'
 import { ROUTES } from '@/constants/routes'
@@ -15,10 +15,10 @@ export function AdminSidebar({ className, onNavigate, onClose }: AdminSidebarPro
   return (
     <div className={cn('flex h-full flex-col bg-sidebar text-sidebar-foreground', className)}>
       <div className="flex h-16 items-center justify-between px-4">
-        <Link to={ROUTES.home} className="flex items-center gap-2 font-semibold">
+        <a href={ROUTES.home} className="flex items-center gap-2 font-semibold">
           <FileStack className="size-6" aria-hidden="true" />
           <span className="font-display text-lg tracking-tight">AquiAtas</span>
-        </Link>
+        </a>
         {onClose && (
           <Button variant="ghost" size="icon" onClick={onClose} className="text-sidebar-foreground lg:hidden">
             <X className="size-5" />
