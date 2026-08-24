@@ -155,9 +155,7 @@ export function HomePage() {
                     </span>
                   )}
                 </Button>
-                {activeFilterCount > 0 && (
-                  <span className="text-sm text-muted-foreground">{result.total} ata(s) encontrada(s)</span>
-                )}
+                <span className="text-sm text-muted-foreground">{result.total} ata(s) encontrada(s)</span>
               </div>
               <SortSelect value={sort} onChange={setSort} />
             </div>
