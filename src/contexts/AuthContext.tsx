@@ -23,6 +23,7 @@ interface AuthContextValue {
   signUp: (data: RegisterData) => Promise<RegisterResult>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
+  resendConfirmationEmail: (email: string) => Promise<void>
   updatePassword: (newPassword: string) => Promise<void>
   updateProfile: (input: { nome: string; telefone?: string; orgaoPublico: string }) => Promise<void>
   refreshProfile: () => Promise<void>
@@ -129,6 +130,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await authService.requestPasswordReset(email)
   }, [])
 
+  const resendConfirmationEmail = useCallback(async (email: string) => {
+    await authService.resendConfirmationEmail(email)
+  }, [])
+
   const updatePassword = useCallback(async (newPassword: string) => {
     try {
       await authService.updatePassword(newPassword)
@@ -169,11 +174,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signUp: register,
       signOut: logout,
       resetPassword,
+      resendConfirmationEmail,
       updatePassword,
       updateProfile,
       refreshProfile,
     }),
-    [user, session, role, isLoading, login, register, logout, resetPassword, updatePassword, updateProfile, refreshProfile],
+    [
+      user,
+      session,
+      role,
+      isLoading,
+      login,
+      register,
+      logout,
+      resetPassword,
+      resendConfirmationEmail,
+      updatePassword,
+      updateProfile,
+      refreshProfile,
+    ],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

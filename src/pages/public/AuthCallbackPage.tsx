@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { CheckCircle2, FileStack, XCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { Seo } from '@/components/common'
 import { supabase } from '@/integrations/supabase/client'
 import { ROUTES } from '@/constants/routes'
@@ -26,7 +27,6 @@ export function AuthCallbackPage() {
       if (cancelled) return
       if (event === 'SIGNED_IN') {
         setState('success')
-        setTimeout(() => navigate(ROUTES.home, { replace: true }), 1500)
       }
     })
 
@@ -38,7 +38,6 @@ export function AuthCallbackPage() {
       }
       if (data.session) {
         setState('success')
-        setTimeout(() => navigate(ROUTES.home, { replace: true }), 1500)
       } else {
         // Give onAuthStateChange a moment to process the URL before giving up.
         setTimeout(() => {
@@ -46,7 +45,6 @@ export function AuthCallbackPage() {
             supabase.auth.getSession().then(({ data: retry }) => {
               if (cancelled) return
               setState(retry.session ? 'success' : 'error')
-              if (retry.session) setTimeout(() => navigate(ROUTES.home, { replace: true }), 1500)
             })
           }
         }, 1500)
@@ -80,8 +78,11 @@ export function AuthCallbackPage() {
       {state === 'success' && (
         <>
           <CheckCircle2 className="mb-4 size-10 text-success" aria-hidden="true" />
-          <h1 className="text-xl font-semibold text-foreground">Conta confirmada!</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Redirecionando para a página inicial...</p>
+          <h1 className="text-xl font-semibold text-foreground">E-mail confirmado com sucesso!</h1>
+          <p className="mt-2 text-sm text-muted-foreground">Agora você já pode entrar na sua conta.</p>
+          <Button className="mt-6" onClick={() => navigate(ROUTES.home, { replace: true })}>
+            Entrar
+          </Button>
         </>
       )}
 

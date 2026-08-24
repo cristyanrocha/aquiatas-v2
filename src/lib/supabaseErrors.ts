@@ -1,8 +1,11 @@
 import { PostgrestError } from '@supabase/supabase-js'
 
+export const EMAIL_NOT_CONFIRMED_MESSAGE =
+  'Seu e-mail ainda não foi confirmado. Verifique sua caixa de entrada e confirme seu cadastro antes de entrar.'
+
 const AUTH_MESSAGES: Array<[RegExp, string]> = [
   [/invalid login credentials/i, 'Email ou senha inválidos.'],
-  [/email not confirmed/i, 'Confirme seu email antes de entrar. Verifique sua caixa de entrada.'],
+  [/email not confirmed/i, EMAIL_NOT_CONFIRMED_MESSAGE],
   [/user already registered|already been registered/i, 'Já existe uma conta cadastrada com este e-mail.'],
   [/password should be at least/i, 'A senha deve ter no mínimo 8 caracteres, incluindo letra e número.'],
   [/rate limit/i, 'Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente novamente.'],

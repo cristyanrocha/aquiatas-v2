@@ -95,6 +95,15 @@ export const authService = {
     if (error) throw new Error(translateSupabaseError(error))
   },
 
+  async resendConfirmationEmail(email: string): Promise<void> {
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: email.trim().toLowerCase(),
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+    })
+    if (error) throw new Error(translateSupabaseError(error))
+  },
+
   async getCurrentUser(): Promise<AuthenticatedUser | null> {
     return fetchOwnProfile()
   },

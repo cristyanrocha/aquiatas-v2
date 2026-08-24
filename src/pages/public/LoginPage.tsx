@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -8,21 +8,33 @@ import { AuthPageShell } from '@/components/public'
 import { useAuth } from '@/hooks/useAuth'
 import { ROUTES } from '@/constants/routes'
 import { isValidEmail } from '@/utils/validation'
+import { EMAIL_NOT_CONFIRMED_MESSAGE } from '@/lib/supabaseErrors'
+
+const RESEND_COOLDOWN_SECONDS = 30
 
 interface LocationState {
   from?: { pathname: string }
 }
 
 export function LoginPage() {
-  const { login, isLoading } = useAuth()
+  const { login, isLoading, resendConfirmationEmail } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [unconfirmedEmail, setUnconfirmedEmail] = useState<string | null>(null)
+  const [isResending, setIsResending] = useState(false)
+  const [resendCooldown, setResendCooldown] = useState(0)
 
   const busy = isSubmitting || isLoading
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return
+    const timer = setTimeout(() => setResendCooldown((seconds) => seconds - 1), 1000)
+    return () => clearTimeout(timer)
+  }, [resendCooldown])
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -35,14 +47,34 @@ export function LoginPage() {
     if (Object.keys(nextErrors).length > 0) return
 
     setIsSubmitting(true)
+    setUnconfirmedEmail(null)
     try {
       await login(email, password)
       const state = location.state as LocationState | null
       navigate(state?.from?.pathname ?? ROUTES.home, { replace: true })
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Não foi possível entrar. Tente novamente.')
+      const message = error instanceof Error ? error.message : 'Não foi possível entrar. Tente novamente.'
+      if (message === EMAIL_NOT_CONFIRMED_MESSAGE) {
+        setUnconfirmedEmail(email.trim().toLowerCase())
+      } else {
+        toast.error(message)
+      }
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  async function handleResend() {
+    if (!unconfirmedEmail || isResending || resendCooldown > 0) return
+    setIsResending(true)
+    try {
+      await resendConfirmationEmail(unconfirmedEmail)
+      toast.success('E-mail de confirmação reenviado. Verifique sua caixa de entrada.')
+      setResendCooldown(RESEND_COOLDOWN_SECONDS)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Não foi possível reenviar o e-mail. Tente novamente.')
+    } finally {
+      setIsResending(false)
     }
   }
 
@@ -79,6 +111,25 @@ export function LoginPage() {
               Esqueci minha senha
             </Link>
           </div>
+
+          {unconfirmedEmail && (
+            <div className="rounded-md border border-warning/30 bg-warning/10 p-3 text-sm text-warning-foreground">
+              <p>{EMAIL_NOT_CONFIRMED_MESSAGE}</p>
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={isResending || resendCooldown > 0}
+                className="mt-2 font-medium text-brand hover:underline disabled:cursor-not-allowed disabled:opacity-60 disabled:no-underline"
+              >
+                {isResending
+                  ? 'Reenviando...'
+                  : resendCooldown > 0
+                    ? `Reenviar e-mail de confirmação (${resendCooldown}s)`
+                    : 'Reenviar e-mail de confirmação'}
+              </button>
+            </div>
+          )}
+
           <Button type="submit" disabled={busy} className="mt-1">
             {busy ? 'Entrando...' : 'Entrar'}
           </Button>
