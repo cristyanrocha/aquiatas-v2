@@ -155,9 +155,11 @@ export function HomePage() {
                     </span>
                   )}
                 </Button>
-                <span className="text-sm text-muted-foreground">
-                  {isLoading ? 'Buscando...' : `${result.total} ata(s) encontrada(s)`}
-                </span>
+                {activeFilterCount > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {isLoading ? 'Buscando...' : `${result.total} ata(s) encontrada(s)`}
+                  </span>
+                )}
               </div>
               <SortSelect value={sort} onChange={setSort} />
             </div>
