@@ -31,7 +31,7 @@ export function NewsletterSection() {
   }
 
   return (
-    <section className="bg-brand py-14 text-primary-foreground">
+    <section className="bg-[#00309d] py-14 text-primary-foreground">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 px-4 text-center sm:px-6">
         <Mail className="size-8" aria-hidden="true" />
         <h2 className="text-2xl font-semibold">Receba novas atas no seu email</h2>
