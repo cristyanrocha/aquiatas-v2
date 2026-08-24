@@ -62,7 +62,7 @@ export function LoginDialog({ open, onOpenChange, onSwitchToRegister }: LoginDia
           <FormField label="Senha" error={errors.password} required>
             <PasswordInput value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" />
           </FormField>
-          <Button type="submit" disabled={busy}>
+          <Button type="submit" disabled={busy} className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]">
             {busy ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>

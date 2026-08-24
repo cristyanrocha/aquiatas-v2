@@ -83,10 +83,10 @@ export function PublicHeader() {
             </DropdownMenu>
           ) : (
             <div className="hidden items-center gap-2 lg:flex">
-              <Button asChild variant="ghost">
+              <Button asChild variant="ghost" className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]">
                 <Link to={ROUTES.login}>Entrar</Link>
               </Button>
-              <Button asChild variant="secondary">
+              <Button asChild variant="secondary" className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]">
                 <Link to={ROUTES.cadastro}>Criar conta</Link>
               </Button>
             </div>
@@ -106,10 +106,20 @@ export function PublicHeader() {
                 <Navigation orientation="vertical" onNavigate={() => setMobileOpen(false)} />
                 {!isAuthenticated && (
                   <div className="flex flex-col gap-2">
-                    <Button asChild variant="outline" onClick={() => setMobileOpen(false)}>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+                      onClick={() => setMobileOpen(false)}
+                    >
                       <Link to={ROUTES.login}>Entrar</Link>
                     </Button>
-                    <Button asChild variant="secondary" onClick={() => setMobileOpen(false)}>
+                    <Button
+                      asChild
+                      variant="secondary"
+                      className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+                      onClick={() => setMobileOpen(false)}
+                    >
                       <Link to={ROUTES.cadastro}>Criar conta</Link>
                     </Button>
                   </div>
