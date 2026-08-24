@@ -42,7 +42,7 @@ export function PublicHeader() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
         <a href={ROUTES.home} className="flex shrink-0 items-center">
-          <img src="/images/logo.png" alt="AquiAtas" className="h-14 w-auto lg:h-16" />
+          <img src="/images/logo.png" alt="AquiAtas" className="h-12 w-auto lg:h-14" />
         </a>
 
         <Navigation className="hidden lg:flex" />
