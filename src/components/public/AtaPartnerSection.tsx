@@ -59,7 +59,10 @@ export function AtaPartnerSection({ detail }: AtaPartnerSectionProps) {
             </p>
           </div>
           <div className="mt-1 flex gap-2">
-            <Button onClick={() => setLoginDialogOpen(true)}>
+            <Button
+              onClick={() => setLoginDialogOpen(true)}
+              className="bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+            >
               <Building2 />
               Entrar
             </Button>
