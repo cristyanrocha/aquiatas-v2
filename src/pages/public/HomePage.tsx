@@ -136,7 +136,6 @@ export function HomePage() {
             categories={categories}
             brands={brands}
             ataTypes={ataTypes}
-            resultCount={result.total}
             className="hidden self-start rounded-xl border border-border bg-card p-5 shadow-sm lg:sticky lg:top-24 lg:block"
           />
 
@@ -203,7 +202,6 @@ export function HomePage() {
               categories={categories}
               brands={brands}
               ataTypes={ataTypes}
-              resultCount={result.total}
             />
           </div>
           <div className="border-t border-border p-4">

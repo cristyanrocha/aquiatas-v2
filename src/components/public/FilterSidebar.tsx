@@ -15,7 +15,6 @@ interface FilterSidebarProps {
   categories: Category[]
   brands: Brand[]
   ataTypes: AtaType[]
-  resultCount: number
   className?: string
 }
 
@@ -104,7 +103,6 @@ export function FilterSidebar({
   categories,
   brands,
   ataTypes,
-  resultCount,
   className,
 }: FilterSidebarProps) {
   const activeChips: { key: string; label: string; onRemove: () => void }[] = [
@@ -129,9 +127,8 @@ export function FilterSidebar({
 
   return (
     <aside className={className} aria-label="Filtros de busca">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <h2 className="font-display text-base font-semibold text-foreground">Filtros</h2>
-        <span className="text-xs text-muted-foreground">{resultCount} resultado(s)</span>
       </div>
 
       {hasActiveFilters && (
