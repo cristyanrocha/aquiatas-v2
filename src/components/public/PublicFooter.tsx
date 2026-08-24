@@ -5,7 +5,7 @@ import { SocialIconLink } from '@/components/common'
 import { ROUTES } from '@/constants/routes'
 
 const PLATFORM_LINKS = [
-  { label: 'Buscar Atas', href: ROUTES.home },
+  { label: 'Buscar Atas', href: ROUTES.home, onClick: () => window.scrollTo(0, 0) },
   { label: 'Parceiros', href: ROUTES.parceiros },
   { label: 'Órgãos Públicos', href: ROUTES.orgaos },
   { label: 'Planos e Preços', href: ROUTES.precos },
@@ -16,12 +16,16 @@ const LEGAL_LINKS = [
   { label: 'Política de Privacidade', href: ROUTES.politicaDePrivacidade },
 ]
 
-function FooterLinkList({ links }: { links: { label: string; href: string }[] }) {
+function FooterLinkList({ links }: { links: { label: string; href: string; onClick?: () => void }[] }) {
   return (
     <ul className="flex flex-col gap-2.5">
       {links.map((link) => (
         <li key={link.href}>
-          <Link to={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+          <Link
+            to={link.href}
+            onClick={link.onClick}
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
             {link.label}
           </Link>
         </li>
@@ -40,8 +44,8 @@ export function PublicFooter() {
               <img src="/images/logo.png" alt="AquiAtas" className="h-12 w-auto" />
             </a>
             <p className="max-w-xs text-sm text-muted-foreground">
-              A vitrine digital das Atas de Registro de Preços do Brasil — conectando órgãos públicos e fornecedores
-              com simplicidade e transparência.
+              A vitrine digital que conecta órgãos públicos e fornecedores às Atas de Registro de Preços em todo o
+              Brasil, com simplicidade, transparência e eficiência.
             </p>
             <ul className="mt-1 flex flex-wrap gap-2">
               {SOCIAL_LINKS.map((social) => (
@@ -53,17 +57,14 @@ export function PublicFooter() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">AquiAtas</h3>
             <FooterLinkList links={[{ label: 'Quem Somos', href: ROUTES.quemSomos }, { label: 'Contato', href: ROUTES.contato }]} />
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Plataforma</h3>
             <FooterLinkList links={PLATFORM_LINKS} />
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Legal</h3>
             <FooterLinkList links={LEGAL_LINKS} />
             <a
               href={getWhatsAppUrl()}
