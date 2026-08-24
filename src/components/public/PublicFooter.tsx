@@ -41,7 +41,7 @@ export function PublicFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-3 pr-4">
             <a href="/" className="flex items-center">
-              <img src="/images/logo.png" alt="AquiAtas" className="h-10 w-auto" />
+              <img src="/images/logo.png" alt="AquiAtas" className="h-8 w-auto" />
             </a>
             <p className="max-w-xs text-sm text-muted-foreground">
               A vitrine digital que conecta órgãos públicos e fornecedores às Atas de Registro de Preços em todo o
