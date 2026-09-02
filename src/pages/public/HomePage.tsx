@@ -8,6 +8,7 @@ import {
   AtaDetailsModal,
   FilterSidebar,
   NewsletterSection,
+  PlatformStats,
   SearchBar,
   SortSelect,
 } from '@/components/public'
@@ -137,6 +138,8 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      <PlatformStats marcas={brands.length} />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-10 pb-20 sm:px-6 lg:px-8 lg:py-14">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[272px_1fr]">
