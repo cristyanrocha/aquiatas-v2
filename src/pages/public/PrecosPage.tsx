@@ -73,7 +73,7 @@ export function PrecosPage() {
               variant={plan.recomendado ? 'default' : 'outline'}
               className={cn(
                 'w-full',
-                plan.ctaLabel === 'Escolher plano' && 'bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]',
+                plan.ctaLabel === 'Escolher plano' && 'bg-action text-white hover:bg-action-hover active:bg-action-active',
               )}
             >
               <a href={getWhatsAppUrl(PLAN_WHATSAPP_MESSAGES[plan.id])} target="_blank" rel="noopener noreferrer">

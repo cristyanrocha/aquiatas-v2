@@ -138,7 +138,7 @@ export function ContatoPage() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="mt-2 bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+            className="mt-2 bg-action text-white hover:bg-action-hover active:bg-action-active"
           >
             {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
           </Button>

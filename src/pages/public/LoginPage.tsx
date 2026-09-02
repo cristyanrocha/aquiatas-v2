@@ -133,7 +133,7 @@ export function LoginPage() {
           <Button
             type="submit"
             disabled={busy}
-            className="mt-1 bg-[#2A76E2] text-white hover:bg-[#2568C7] active:bg-[#225EB5]"
+            className="mt-1 bg-action text-white hover:bg-action-hover active:bg-action-active"
           >
             {busy ? 'Entrando...' : 'Entrar'}
           </Button>
