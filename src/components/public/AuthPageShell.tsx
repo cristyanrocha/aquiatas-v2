@@ -18,7 +18,7 @@ export function AuthPageShell({ title, description, icon: Icon = FileStack, show
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
       <div className="mb-8 flex flex-col items-center gap-2 text-center">
         {showIcon && (
-          <div className="flex size-12 items-center justify-center rounded-full bg-primary-light text-brand">
+          <div className="flex size-12 items-center justify-center rounded-full bg-action-soft text-action">
             <Icon className="size-6" aria-hidden="true" />
           </div>
         )}
@@ -26,7 +26,7 @@ export function AuthPageShell({ title, description, icon: Icon = FileStack, show
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">{children}</div>
+      <div className="rounded-2xl border border-border border-t-2 border-t-action bg-card p-6 shadow-sm">{children}</div>
 
       {footer && <div className="mt-6 flex flex-col items-center gap-2 text-center text-sm text-muted-foreground">{footer}</div>}
     </div>

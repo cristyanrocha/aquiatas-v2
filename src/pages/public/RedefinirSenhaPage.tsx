@@ -90,7 +90,11 @@ export function RedefinirSenhaPage() {
                 autoComplete="new-password"
               />
             </FormField>
-            <Button type="submit" disabled={isSubmitting || isRecoverySession === null} className="mt-1">
+            <Button
+              type="submit"
+              disabled={isSubmitting || isRecoverySession === null}
+              className="mt-1 bg-action text-white hover:bg-action-hover active:bg-action-active"
+            >
               {isSubmitting ? 'Salvando...' : 'Redefinir senha'}
             </Button>
           </form>

@@ -68,7 +68,11 @@ export function EsqueciMinhaSenhaPage() {
                 autoFocus
               />
             </FormField>
-            <Button type="submit" disabled={isSubmitting} className="mt-1">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="mt-1 bg-action text-white hover:bg-action-hover active:bg-action-active"
+            >
               {isSubmitting ? 'Enviando...' : 'Enviar link de redefinição'}
             </Button>
           </form>
