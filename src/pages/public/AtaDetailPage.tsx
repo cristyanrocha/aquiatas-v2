@@ -93,9 +93,9 @@ export function AtaDetailPage() {
           <DetailRow icon={Package} label="Quantidade registrada" value={`${formatNumberBR(ata.quantidade)} ${ata.unidadeMedida}`} />
         </div>
 
-        <div className="rounded-lg bg-primary-light px-4 py-3">
+        <div className="rounded-lg bg-action-soft px-4 py-3">
           <span className="text-xs text-muted-foreground">Valor unitário registrado</span>
-          <p className="text-2xl font-semibold text-brand">{formatCurrencyBRL(ata.valorUnitario)}</p>
+          <p className="text-2xl font-semibold text-action">{formatCurrencyBRL(ata.valorUnitario)}</p>
         </div>
       </div>
 
