@@ -109,22 +109,29 @@ export function HomePage() {
           src="/images/hero-background.jpg"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 size-full object-cover"
+          fetchPriority="high"
+          className="absolute inset-0 size-full object-cover object-[88%_center] sm:object-[80%_center] lg:object-[68%_center]"
         />
-        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 text-center sm:px-6">
-          <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
-            A maior vitrine digital de Atas de Registro de Preços do Brasil
-          </h1>
-          <p className="max-w-2xl text-base text-primary-foreground/80 sm:text-lg lg:text-xl">
-            Pesquise produtos, fornecedores, órgãos e oportunidades em Atas de Registro de Preços vigentes.
-          </p>
-          <SearchBar
-            value={filters.search}
-            onChange={(value) => setFilters((prev) => ({ ...prev, search: value }))}
-            size="lg"
-            buttonVariant="secondary"
-            className="mt-2 w-full max-w-2xl"
-          />
+        <div
+          className="absolute inset-0 bg-[#0A1F3D]/85 sm:bg-linear-to-r sm:from-[#0A1F3D] sm:via-[#0A1F3D]/65 sm:to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex max-w-xl flex-col items-start gap-8 text-left">
+            <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl lg:tracking-tighter">
+              A maior vitrine digital de Atas de Registro de Preços do Brasil
+            </h1>
+            <p className="max-w-lg text-base text-primary-foreground/80 sm:text-lg lg:text-xl">
+              Pesquise produtos, fornecedores, órgãos e oportunidades em Atas de Registro de Preços vigentes.
+            </p>
+            <SearchBar
+              value={filters.search}
+              onChange={(value) => setFilters((prev) => ({ ...prev, search: value }))}
+              size="lg"
+              buttonVariant="secondary"
+              className="mt-2 w-full max-w-xl"
+            />
+          </div>
         </div>
       </section>
 
