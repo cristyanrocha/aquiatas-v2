@@ -36,7 +36,7 @@ function FooterLinkList({ links }: { links: { label: string; href: string; onCli
 
 export function PublicFooter() {
   return (
-    <footer className="border-t border-border bg-muted/30">
+    <footer className="border-t-2 border-t-action bg-muted/50">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-3 pr-4">
@@ -56,15 +56,15 @@ export function PublicFooter() {
             </ul>
           </div>
 
-          <div>
+          <div className="lg:border-l lg:border-border lg:pl-8">
             <FooterLinkList links={[{ label: 'Quem Somos', href: ROUTES.quemSomos }, { label: 'Contato', href: ROUTES.contato }]} />
           </div>
 
-          <div>
+          <div className="lg:border-l lg:border-border lg:pl-8">
             <FooterLinkList links={PLATFORM_LINKS} />
           </div>
 
-          <div>
+          <div className="lg:border-l lg:border-border lg:pl-8">
             <FooterLinkList links={LEGAL_LINKS} />
             <a
               href={getWhatsAppUrl()}

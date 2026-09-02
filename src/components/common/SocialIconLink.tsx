@@ -16,7 +16,7 @@ export function SocialIconLink({ social, className }: SocialIconLinkProps) {
       rel="noopener noreferrer"
       aria-label={social.label}
       className={cn(
-        'flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-200 hover:border-brand hover:bg-primary-light hover:text-brand',
+        'flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors duration-200 hover:border-action hover:bg-action-soft hover:text-action',
         className,
       )}
     >
