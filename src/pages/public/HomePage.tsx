@@ -113,7 +113,7 @@ export function HomePage() {
           className="absolute inset-0 size-full object-cover object-[88%_center] sm:object-[80%_center] lg:object-[68%_center]"
         />
         <div
-          className="absolute inset-0 bg-[#0A1F3D]/85 sm:bg-linear-to-r sm:from-[#0A1F3D] sm:via-[#0A1F3D]/65 sm:to-transparent"
+          className="absolute inset-0 bg-[#0A1F3D]/65 sm:bg-linear-to-r sm:from-[#0A1F3D]/85 sm:via-[#0A1F3D]/45 sm:to-transparent"
           aria-hidden="true"
         />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
