@@ -30,16 +30,16 @@ export function AdminListHeader({
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>
+          <h1 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">{title}</h1>
           {description && <p className="text-sm text-muted-foreground">{description}</p>}
         </div>
         {onNewClick ? (
-          <Button onClick={onNewClick}>
+          <Button onClick={onNewClick} className="bg-action text-white hover:bg-action-hover active:bg-action-active">
             <Plus className="size-4" />
             {newLabel}
           </Button>
         ) : (
-          <Button asChild>
+          <Button asChild className="bg-action text-white hover:bg-action-hover active:bg-action-active">
             <Link to={newHref ?? '#'}>
               <Plus className="size-4" />
               {newLabel}

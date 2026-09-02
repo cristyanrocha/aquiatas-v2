@@ -9,7 +9,7 @@ interface StatCardProps {
 }
 
 const TONE_STYLES: Record<NonNullable<StatCardProps['tone']>, string> = {
-  default: 'bg-brand/10 text-brand',
+  default: 'bg-action/10 text-action',
   success: 'bg-success/10 text-success',
   warning: 'bg-warning/10 text-warning',
 }

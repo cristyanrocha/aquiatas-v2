@@ -54,7 +54,7 @@ export function DataTable<T>({
                     <button
                       type="button"
                       onClick={() => onSortChange(column.key)}
-                      className="inline-flex items-center gap-1 font-medium text-foreground hover:text-primary"
+                      className="inline-flex items-center gap-1 font-medium text-foreground hover:text-action"
                     >
                       {column.header}
                       {sortKey === column.key ? (

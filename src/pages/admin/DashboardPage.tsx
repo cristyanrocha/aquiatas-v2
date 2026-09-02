@@ -4,6 +4,7 @@ import { FileStack, Building2, Landmark, Users, CheckCircle2, AlertTriangle } fr
 import { StatCard, SimpleBarChart } from '@/components/admin'
 import { StatusBadge } from '@/components/common/StatusBadge'
 import { DataTable, Seo, type DataTableColumn } from '@/components/common'
+import { Skeleton } from '@/components/ui/skeleton'
 import { dashboardService, type DashboardSummary } from '@/services/dashboardService'
 import { formatCurrencyBRL, formatDateBR } from '@/utils/format'
 import { ROUTES } from '@/constants/routes'
@@ -54,7 +55,26 @@ export function DashboardPage() {
       </div>
 
       {isLoading || !summary ? (
-        <p className="text-sm text-muted-foreground">Carregando...</p>
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm"
+              >
+                <Skeleton className="size-11 shrink-0 rounded-lg" />
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="h-6 w-16" />
+                  <Skeleton className="h-3 w-24" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <Skeleton className="h-64 w-full rounded-xl" />
+            <Skeleton className="h-64 w-full rounded-xl" />
+          </div>
+        </>
       ) : (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
