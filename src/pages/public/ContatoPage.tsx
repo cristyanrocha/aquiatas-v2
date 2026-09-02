@@ -19,7 +19,7 @@ const RATE_LIMIT_MS = 30_000
 function ContactInfoRow({ icon: Icon, label, children }: { icon: LucideIcon; label: string; children: ReactNode }) {
   return (
     <div className="flex items-start gap-3">
-      <Icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
+      <Icon className="mt-0.5 size-5 shrink-0 text-action" aria-hidden="true" />
       <div>
         <p className="text-sm font-medium text-foreground">{label}</p>
         {children}
@@ -95,7 +95,7 @@ export function ContatoPage() {
               href={getWhatsAppUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-brand hover:underline"
+              className="text-sm text-muted-foreground hover:text-action hover:underline"
             >
               (61) 98101-9364
             </a>

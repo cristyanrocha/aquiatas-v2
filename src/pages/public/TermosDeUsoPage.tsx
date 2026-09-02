@@ -12,10 +12,10 @@ export function TermosDeUsoPage() {
         path={ROUTES.termosDeUso}
       />
 
-      <h1 className="text-3xl font-semibold text-foreground sm:text-4xl">Termos de Uso</h1>
+      <h1 className="font-display text-3xl font-semibold text-foreground sm:text-4xl">Termos de Uso</h1>
       <p className="mt-2 text-sm text-muted-foreground">Última atualização: {LAST_UPDATED}</p>
 
-      <div className="mt-8 flex flex-col gap-6 text-sm leading-relaxed text-muted-foreground">
+      <div className="mt-8 flex flex-col gap-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
         <section>
           <h2 className="mb-2 text-base font-semibold text-foreground">1. Aceitação dos Termos</h2>
           <p>

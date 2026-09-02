@@ -29,7 +29,7 @@ export function QuemSomosPage() {
             validade durante toda a vigência da Ata de Registro de Preços, garantindo maior visibilidade para seus
             produtos e ampliando suas oportunidades no mercado público.
           </p>
-          <p>
+          <p className="border-l-2 border-action py-1 pl-4 text-base font-medium text-foreground sm:text-lg">
             Nosso propósito é tornar as compras públicas mais acessíveis, promovendo eficiência, transparência e
             praticidade para quem compra, além de ampliar a visibilidade e as oportunidades para quem vende.
           </p>
@@ -37,23 +37,29 @@ export function QuemSomosPage() {
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="flex flex-col gap-2 rounded-xl border border-border bg-card p-6 shadow-sm">
-          <Target className="size-6 text-brand" aria-hidden="true" />
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex size-11 items-center justify-center rounded-lg bg-action-soft text-action">
+            <Target className="size-5" aria-hidden="true" />
+          </div>
           <h2 className="text-lg font-semibold text-foreground">Missão</h2>
           <p className="text-sm text-muted-foreground">
             Facilitar o acesso a Atas de Registro de Preços vigentes, promovendo transparência e eficiência nas
             contratações públicas.
           </p>
         </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-border bg-card p-6 shadow-sm">
-          <Eye className="size-6 text-brand" aria-hidden="true" />
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex size-11 items-center justify-center rounded-lg bg-action-soft text-action">
+            <Eye className="size-5" aria-hidden="true" />
+          </div>
           <h2 className="text-lg font-semibold text-foreground">Visão</h2>
           <p className="text-sm text-muted-foreground">
             Ser a principal referência digital em divulgação de Atas de Registro de Preços do Brasil.
           </p>
         </div>
-        <div className="flex flex-col gap-2 rounded-xl border border-border bg-card p-6 shadow-sm">
-          <Compass className="size-6 text-brand" aria-hidden="true" />
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex size-11 items-center justify-center rounded-lg bg-action-soft text-action">
+            <Compass className="size-5" aria-hidden="true" />
+          </div>
           <h2 className="text-lg font-semibold text-foreground">Valores</h2>
           <p className="text-sm text-muted-foreground">
             Atuamos com Transparência, Simplicidade e Eficiência, buscando tornar o acesso às informações sobre Atas
