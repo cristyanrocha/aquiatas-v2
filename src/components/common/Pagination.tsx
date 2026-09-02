@@ -60,6 +60,7 @@ export function AppPagination({ page, totalPages, onPageChange }: AppPaginationP
               <PaginationLink
                 href="#"
                 isActive={item === page}
+                className={item === page ? 'border-transparent bg-action text-white hover:bg-action-hover hover:text-white' : undefined}
                 onClick={(event) => {
                   event.preventDefault()
                   onPageChange(item)

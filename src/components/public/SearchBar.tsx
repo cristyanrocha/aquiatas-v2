@@ -32,8 +32,8 @@ export function SearchBar({
         onSubmit?.()
       }}
       className={cn(
-        'flex w-full items-center gap-2 rounded-full transition-shadow duration-200',
-        size === 'lg' && 'focus-within:shadow-lg',
+        'flex w-full items-center gap-2 rounded-full transition-all duration-200',
+        size === 'lg' && 'focus-within:shadow-lg focus-within:ring-2 focus-within:ring-action/30 focus-within:ring-offset-2',
         className,
       )}
     >
@@ -51,7 +51,7 @@ export function SearchBar({
           aria-label="Buscar atas"
           className={cn(
             'border-transparent bg-white pl-11 text-foreground shadow-sm transition-shadow duration-200',
-            size === 'lg' && 'h-14 rounded-full text-base',
+            size === 'lg' && 'h-14 rounded-full text-base focus-visible:ring-0',
           )}
         />
       </div>

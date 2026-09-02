@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator'
 import type { AtaFilters, AtaType, Brand, Category } from '@/types'
 import { EMPTY_ATA_FILTERS } from '@/services/ataService'
 import { textIncludes } from '@/utils/text'
+import { cn } from '@/lib/utils'
 
 interface FilterSidebarProps {
   filters: AtaFilters
@@ -51,9 +52,9 @@ function FilterGroup({
   return (
     <div className="flex flex-col gap-2.5">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+        <h3 className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">{title}</h3>
         {selected.length > 0 && (
-          <span className="rounded-full bg-primary-light px-2 py-0.5 text-[11px] font-medium text-brand">
+          <span className="rounded-full bg-action-soft px-2 py-0.5 text-[11px] font-medium text-action">
             {selected.length}
           </span>
         )}
@@ -78,14 +79,27 @@ function FilterGroup({
         ) : (
           visibleOptions.map((option) => {
             const checkboxId = `filter-${title}-${option.id}`
+            const isSelected = selected.includes(option.id)
             return (
-              <div key={option.id} className="flex items-center gap-2 rounded-md py-1.5 hover:bg-muted/60">
+              <div
+                key={option.id}
+                className={cn(
+                  'flex items-center gap-2 rounded-md px-1.5 py-1.5 transition-colors hover:bg-muted/60',
+                  isSelected && 'bg-action-soft/60',
+                )}
+              >
                 <Checkbox
                   id={checkboxId}
-                  checked={selected.includes(option.id)}
+                  checked={isSelected}
                   onCheckedChange={() => onToggle(option.id)}
                 />
-                <Label htmlFor={checkboxId} className="w-full cursor-pointer text-sm font-normal text-muted-foreground">
+                <Label
+                  htmlFor={checkboxId}
+                  className={cn(
+                    'w-full cursor-pointer text-sm font-normal text-muted-foreground',
+                    isSelected && 'font-medium text-foreground',
+                  )}
+                >
                   {option.label}
                 </Label>
               </div>
@@ -139,7 +153,7 @@ export function FilterSidebar({
                 key={chip.key}
                 type="button"
                 onClick={chip.onRemove}
-                className="inline-flex items-center gap-1 rounded-full border border-primary/15 bg-primary-light px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/10"
+                className="inline-flex items-center gap-1 rounded-full border border-action/15 bg-action-soft px-2.5 py-1 text-xs font-medium text-action transition-colors hover:bg-action/10"
               >
                 {chip.label}
                 <X className="size-3" aria-hidden="true" />
