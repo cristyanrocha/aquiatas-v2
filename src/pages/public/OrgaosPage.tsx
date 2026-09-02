@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { Badge } from '@/components/ui/badge'
 import { EmptyState, Seo } from '@/components/common'
 import { EntityLocationFilterBar, EntityLogoCard } from '@/components/public'
 import { useEntityStore } from '@/hooks/useEntityStore'
@@ -70,9 +69,9 @@ export function OrgaosPage() {
                 name={agency.nome}
                 location={agency.cidade && agency.estado ? `${agency.cidade}/${agency.estado}` : undefined}
                 badge={
-                  <Badge variant="outline" className="font-normal text-muted-foreground">
+                  <span className="text-[11px] font-medium tracking-wide text-muted-foreground uppercase">
                     {agency.esfera}
-                  </Badge>
+                  </span>
                 }
               />
             ))}
