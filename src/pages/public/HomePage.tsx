@@ -105,13 +105,16 @@ export function HomePage() {
       />
 
       <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32 lg:py-36">
-        <img
-          src="/images/hero-background.jpg"
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          className="absolute inset-0 size-full object-cover object-[88%_center] sm:object-[80%_center] lg:object-[68%_center]"
-        />
+        <picture>
+          <source srcSet="/images/hero-background.webp" type="image/webp" />
+          <img
+            src="/images/hero-background.jpg"
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            className="absolute inset-0 size-full object-cover object-[88%_center] sm:object-[80%_center] lg:object-[68%_center]"
+          />
+        </picture>
         <div
           className="absolute inset-0 bg-[#0A1F3D]/65 sm:bg-linear-to-r sm:from-[#0A1F3D]/85 sm:via-[#0A1F3D]/45 sm:to-transparent"
           aria-hidden="true"
